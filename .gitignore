@@ -1,2 +1,5 @@
 
 .DS_Store
+
+# Ignore tmp file in build directory
+build/tmp/
