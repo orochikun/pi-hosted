@@ -5,7 +5,7 @@
 			"categories": [
 				"Music"
 			],
-			"description": "Airsonic is a free, web-based media streamer, providing ubiqutious access to your music. Use it to share your music with friends, or to listen to your own music while at work. You can stream to multiple players simultaneously, for instance to one player in your kitchen and another in your living room.",
+			"description": "[DEPRECATED] Airsonic is a free, web-based media streamer, providing ubiqutious access to your music. Use it to share your music with friends, or to listen to your own music while at work. You can stream to multiple players simultaneously, for instance to one player in your kitchen and another in your living room.",
 			"env": [
 				{
 					"default": "1000",
@@ -101,17 +101,17 @@
 					"name": "MEDIA_MAX_SIZE"
 				},
 				{
-					"default": true,
+					"default": "true",
 					"label": "PUBLIC_INDEX",
 					"name": "PUBLIC_INDEX"
 				},
 				{
-					"default": true,
+					"default": "true",
 					"label": "PUBLIC_SNAPSHOTS",
 					"name": "PUBLIC_SNAPSHOTS"
 				},
 				{
-					"default": false,
+					"default": "false",
 					"label": "PUBLIC_ADD_VIEW",
 					"name": "PUBLIC_ADD_VIEW"
 				}
@@ -320,7 +320,7 @@
 					"default": "http://192.168.X.Y:6875",
 					"label": "APP_URL",
 					"name": "APP_URL",
-					"description": "Address to access Bookstrap. If using a domain, add it here. If not set correctly the app will not be accessible"
+					"description": "Address to access Bookstack. If using a domain, add it here. If not set correctly the app will not be accessible"
 				},
 				{
 					"default": "6875",
@@ -329,6 +329,7 @@
 				}
 			],
 			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/bookstack2.png",
+			"name": "bookstack",
 			"note": "Default login is admin@admin.com with a password of password. The database created is called bookstackapp and the database user is called bookstack",
 			"platform": "linux",
 			"repository": {
@@ -1654,13 +1655,14 @@
 			"description": "Home Assistant is a free and open-source software for home automation that is designed to be the central control system for smart home devices with focus on local control and privacy.",
 			"image": "homeassistant/home-assistant:latest",
 			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/homeassistant.png",
-			"name": "home assistant",
+			"name": "home-assistant",
 			"platform": "linux",
 			"ports": [
 				"8999:8123/tcp"
 			],
 			"restart_policy": "unless-stopped",
 			"title": "Home Assistant",
+			"type": 1,
 			"volumes": [
 				{
 					"bind": "/portainer/Files/AppData/Config/HomeAssistant/assets",
@@ -2500,32 +2502,32 @@
 					"name": "MAX_WORKERS"
 				},
 				{
-					"default": true,
+					"default": "true",
 					"label": "RECIPE_PUBLIC",
 					"name": "RECIPE_PUBLIC"
 				},
 				{
-					"default": true,
+					"default": "true",
 					"label": "RECIPE_SHOW_NUTRITION",
 					"name": "RECIPE_SHOW_NUTRITION"
 				},
 				{
-					"default": true,
+					"default": "true",
 					"label": "RECIPE_SHOW_ASSETS",
 					"name": "RECIPE_SHOW_ASSETS"
 				},
 				{
-					"default": true,
+					"default": "true",
 					"label": "RECIPE_LANDSCAPE_VIEW",
 					"name": "RECIPE_LANDSCAPE_VIEW"
 				},
 				{
-					"default": false,
+					"default": "false",
 					"label": "RECIPE_DISABLE_COMMENTS",
 					"name": "RECIPE_DISABLE_COMMENTS"
 				},
 				{
-					"default": false,
+					"default": "false",
 					"label": "RECIPE_DISABLE_AMOUNT",
 					"name": "RECIPE_DISABLE_AMOUNT"
 				}
@@ -2913,7 +2915,7 @@
 			],
 			"env": [
 				{
-					"default": true,
+					"default": "true",
 					"label": "N8N_BASIC_AUTH_ACTIVE",
 					"name": "N8N_BASIC_AUTH_ACTIVE"
 				},
@@ -4142,6 +4144,7 @@
 				"Downloaders"
 			],
 			"description": "Popular torrent client with a webui for ease of use.",
+			"note": "For ruTorrent basic auth, XMLRPC through nginx and WebDAV on completed downloads, you can populate .htpasswd files with the following command:\ndocker run --rm -it httpd:2.4-alpine htpasswd -Bbn <username> <password> >> $(pwd)/passwd/webdav.htpasswd",
 			"env": [
 				{
 					"default": "1000",
@@ -4152,28 +4155,79 @@
 					"default": "1000",
 					"label": "PGID",
 					"name": "PGID"
-				}
+				},
+				{
+					"default": "America/New_York",
+                    "label": "TZ",
+                    "name": "TZ"
+                },
+				{
+					"default": "50",
+                    "label": "MAX_FILE_UPLOADS",
+                    "name": "MAX_FILE_UPLOADS"
+                },
+				{
+					"default": "info",
+                    "label": "RT_LOG_LEVEL",
+                    "name": "RT_LOG_LEVEL"
+                },
+				{
+					"default": "6881",
+                    "label": "RT_DHT_PORT",
+                    "name": "RT_DHT_PORT"
+                },
+				{
+					"default": "8000",
+                    "label": "XMLRPC_PORT",
+                    "name": "XMLRPC_PORT"
+                },
+				{
+					"default": "8080",
+                    "label": "RUTORRENT_PORT",
+                    "name": "RUTORRENT_PORT"
+                },
+				{
+					"default": "9000",
+                    "label": "WEBDAV_PORT",
+                    "name": "WEBDAV_PORT"
+                },
+				{
+					"default": "50000",
+                    "label": "RT_INC_PORT",
+                    "name": "RT_INC_PORT"
+                },
+				{
+					"default": "erasedata,httprpc",
+                    "label": "RU_REMOVE_CORE_PLUGINS",
+                    "name": "RU_REMOVE_CORE_PLUGINS"
+                }
 			],
-			"image": "linuxserver/rutorrent:latest",
+			"image": "linuxserver/crazymax/rtorrent-rutorrent:latest",
 			"logo": "https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/rutorrent-icon.png",
 			"name": "rutorrent",
 			"platform": "linux",
 			"ports": [
-				"5324:80/tcp",
-				"51413:51413/tcp",
-				"6881:6881/udp"
+				"${RT_DHT_PORT}:${RT_DHT_PORT}/udp",
+				"${XMLRPC_PORT}:${XMLRPC_PORT}/tcp",
+				"${RUTORRENT_PORT}:${RUTORRENT_PORT}/tcp",
+				"${WEBDAV_PORT}:${WEBDAV_PORT}/tcp",
+				"${RT_INC_PORT}:${RT_INC_PORT}/tcp"
 			],
 			"restart_policy": "unless-stopped",
 			"title": "ruTorrent",
 			"type": 1,
 			"volumes": [
 				{
-					"bind": "/portainer/Files/AppData/Config/ruTorrent",
+					"bind": "/portainer/Files/AppData/Config/ruTorrent/config",
 					"container": "/config"
 				},
 				{
 					"bind": "/portainer/Downloads",
 					"container": "/downloads"
+				},
+				{
+					"bind": "/portainer/Files/AppData/Config/ruTorrent/passwd",
+					"container": "/passwd"
 				}
 			]
 		},
@@ -5402,13 +5456,42 @@
 				"Other",
 				"VPN"
 			],
-			"description": "You have found the easiest way to install & manage WireGuard on any Linux host!",
-			"image": "weejewel/wg-easy",
+			"description": "Fast VPN Server with easy to use User Interface",
+			"image": "weejewel/wg-easy:latest",
 			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/wireguard.png",
 			"name": "wg-easy",
 			"platform": "linux",
 			"title": "Wireguard Server",
 			"type": 3,
+			"env": [
+				{
+					"default": "example.domain.com",
+					"name": "WG_HOST",
+					"label": "WG_HOST",
+					"description": "Set here your DDNS domain"
+				},
+				{
+					"default": "ENTER AN ADMIN PASSWORD",
+					"name": "PASSWORD",
+					"label": "PASSWORD",
+					"description": "Leave blank to access WebUI without loggin"
+				},
+				{
+					"default": "51820",
+					"name": "WG_PORT",
+					"label": "WG_PORT"
+				},
+				{
+					"default": "1.1.1.1",
+					"name": "WG_DEFAULT_DNS",
+					"label": "WG_DEFAULT_DNS"
+				},
+				{
+					"default": "0.0.0.0/0, ::/0",
+					"name": "WG_ALLOWED_IPS",
+					"label": "WG_ALLOWED_IPS"
+				}
+			],
 			"repository": {
 				"stackfile": "stack/wireguard-easy.yml",
 				"url": "https://github.com/pi-hosted/pi-hosted"
@@ -5548,6 +5631,45 @@
 			"volumes": [
 				{
 					"bind": "/portainer/Files/AppData/Config/ZNC",
+					"container": "/config"
+				}
+			]
+		},
+		{
+			"categories": [
+				"Other"
+			],
+			"description": "Rdesktop is an Ubuntu based container containing full desktop environments in officially supported flavors accessible via RDP.",
+			"env": [
+				{
+					"default": "1000",
+					"label": "PUID",
+					"name": "PUID"
+				},
+				{
+					"default": "1000",
+					"label": "PGID",
+					"name": "PGID"
+				},
+                {
+					"default": "America/New_York",
+                    "label": "TZ",
+                    "name": "TZ"
+                }
+			],
+			"image": "linuxserver/rdesktop:latest",
+			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/rdesktop.png",
+			"name": "rdesktop",
+			"platform": "linux",
+			"ports": [
+				"3389:3389/tcp"
+			],
+			"restart_policy": "unless-stopped",
+			"title": "RDesktop",
+			"type": 1,
+			"volumes": [
+				{
+					"bind": "/portainer/Files/AppData/Config/RDesktop/config",
 					"container": "/config"
 				}
 			]
